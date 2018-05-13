@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/floating-labels.css" rel="stylesheet">
+    <title>.js ImageCapture</title>
+  </head>
+  <body class = "body">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand" href="#">.js ImageCapture</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+    <div>
+    <video autoplay></video>
+    <canvas id="canvas" hidden></canvas>
+    <img id="photo" name="photo" hidden>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+    (function() {
+      'use strict';
+      var video = document.querySelector('video'), canvas;
+      canvas = document.getElementById('canvas');
+      photo = document.getElementById('photo');
+      // use MediaDevices API
+      function dataURLtoBlob(dataurl) {
+          var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+              bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+          while(n--){
+              u8arr[n] = bstr.charCodeAt(n);
+          }
+          return new Blob([u8arr], {type:mime});
+      }
+      // docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
+      if (navigator.mediaDevices) {
+        // access the web cam
+        navigator.mediaDevices.getUserMedia({video: true})
+        // permission granted:
+          .then(function(stream) {
+            video.srcObject = stream;
+            var rafId;
+            var CANVAS_WIDTH = canvas.width;
+            var CANVAS_HEIGHT = canvas.height;
+            var context;
+            context = canvas.getContext('2d');
+            function drawVideoFrame(time) {
+              rafId = requestAnimationFrame(drawVideoFrame);
+              context.drawImage(video, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+              var data = canvas.toDataURL('image/jpeg');
+              photo.setAttribute('src',data);
+              var blob = dataURLtoBlob(data);
+            };
+            rafId = requestAnimationFrame(drawVideoFrame);
+          })
+          // permission denied:
+          .catch(function(error) {
+            document.body.textContent = 'Could not access the camera. Error: ' + error.name;
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

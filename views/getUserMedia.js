@@ -23,7 +23,7 @@
         var CANVAS_WIDTH = canvas.width;
         var CANVAS_HEIGHT = canvas.height;
         var context;
-        var fps = 8;
+        var fps = 1;
         var now;
         var then = performance.now();
         var interval = 1000/fps;
@@ -44,6 +44,8 @@
         rafId = requestAnimationFrame(drawVideoFrame);
         socket.on('response',function(write){
           document.getElementById('p1').innerHTML = write;
+          var msg = new SpeechSynthesisUtterance(write);
+          window.speechSynthesis.speak(msg);
         });
       })
       // permission denied:

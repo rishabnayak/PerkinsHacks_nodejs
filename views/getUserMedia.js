@@ -15,7 +15,7 @@
   // docs: https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
   if (navigator.mediaDevices) {
     // access the web cam
-    navigator.mediaDevices.getUserMedia({video: true})
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
     // permission granted:
       .then(function(stream) {
         video.srcObject = stream;

@@ -27,6 +27,6 @@ io.on('connection',function(socket){
       );
     });
 });
-http.listen(8000, () => {
-  console.log("View at localhost:8000");
+http.listen(8080, () => {
+  console.log("View at localhost:8080");
 });

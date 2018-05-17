@@ -42,10 +42,22 @@
           }
         };
         rafId = requestAnimationFrame(drawVideoFrame);
-        socket.on('response',function(write){
+        socket.on('response1',function(write){
           document.getElementById('p1').innerHTML = write;
           var msg = new SpeechSynthesisUtterance(write);
+        });
+        socket.on('response2',function(write){
+          document.getElementById('p2').innerHTML = write;
+          var msg = new SpeechSynthesisUtterance(write);
           window.speechSynthesis.speak(msg);
+        });
+        socket.on('response3',function(write){
+          document.getElementById('p3').innerHTML = write;
+          var msg = new SpeechSynthesisUtterance(write);
+        });
+        socket.on('response4',function(write){
+          document.getElementById('p4').innerHTML = write;
+          var msg = new SpeechSynthesisUtterance(write);
         });
       })
       // permission denied:

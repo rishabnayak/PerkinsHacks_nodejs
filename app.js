@@ -17,7 +17,10 @@ io.on('connection',function(socket){
     socket.on('image', function(img){
       clarifaiClient.models.predict(clarifai.GENERAL_MODEL,{base64: img}).then(
         function(response){
-            io.emit('response',response.outputs[0].data.concepts[0].name);
+            io.emit('response1',response.outputs[0].data.concepts[0].name);
+            io.emit('response2',response.outputs[0].data.concepts[1].name);
+            io.emit('response3',response.outputs[0].data.concepts[2].name);
+            io.emit('response4',response.outputs[0].data.concepts[3].name);
         },
         function(err){
           console.log(err);

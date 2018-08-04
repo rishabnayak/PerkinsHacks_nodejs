@@ -5,4 +5,4 @@ This uses getUserMedia and requestAnimationFrame to get live camera data from th
 
 How to Run
 ====
-Run ```npm start``` from root directory, then visit localhost:8080 to view.
+Run ```npm start``` from root directory, then visit ```localhost:8080``` to view.

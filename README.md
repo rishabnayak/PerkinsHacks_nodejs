@@ -13,7 +13,7 @@ This uses getUserMedia and requestAnimationFrame to get live camera data from th
 
 Before you can run or deploy the sample, you need to do the following:
 
-    With `npm`:
+With `npm`:
 
         npm install
 

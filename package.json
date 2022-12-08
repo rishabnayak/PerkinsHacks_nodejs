@@ -6,7 +6,7 @@
   "dependencies": {
     "clarifai": "^2.7.1",
     "ejs": "^2.6.1",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "getusermedia": "^2.0.1",
     "http": "0.0.0",
     "socket.io": "^2.1.0"
